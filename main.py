@@ -155,7 +155,7 @@ async def main():
     button_start= pygame.Rect(650, 500, 200, 80)
     mouse_pad = pygame.Rect(500, 430, 400, 170)  # x,y,w,h
     mouse_pad1 = pygame.Rect(500, 480, 400, 120)  # x,y,w,h
-    font_btn = pygame.font.SysFont('freesansbold.ttf', 25)
+    font_btn = pygame.font.SysFont('freesansbold.ttf', 32)
     font_start= pygame.font.SysFont('freesansbold.ttf', 32)
 
     def draw_buttons():
@@ -176,7 +176,11 @@ async def main():
     game_cover = pygame.image.load('assets/images/cover.png')
     gun_sound = mixer.Sound('assets/sounds/gunSht.ogg')
     def game_start_cover(x,y):
+        msg1 = font_btn.render("Multi-touch not supported!", True, (255, 255, 0))
+        msg2 = font_btn.render("Lift finger before tapping shoot.", True, (255, 255, 0))
         screen.blit(game_cover,(x,y))
+        screen.blit(msg1,(550,445))
+        screen.blit(msg2, (550, 470))
 
     running = True
     while running:
@@ -187,7 +191,7 @@ async def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN: #game control by mouse
-                if button_fire.collidepoint(event.pos) and duck_die == False and gameOver == False and bullet_count<=2 and game_start == True:
+                if event.button == 1 and button_fire.collidepoint(event.pos) and duck_die == False and gameOver == False and bullet_count<=2 and game_start == True:
                     gun_sound.play()
                     aim_shoot = True
                     bullet_count += 1  # number of bullet using
